@@ -1,18 +1,15 @@
 global input
 
 input:
-    ;prologue
     push ebp            
     mov ebp, esp        
 
-    mov eax, 3
-	mov ebx, 0              ; specify stdout file descriptor
-    ; get fuction arguments
-	mov ecx, [ebp+8]        ; buffer
-	mov edx, [ebp+12]       ; buffer size
-	int 0x80
+    mov eax, 3              ; specify stdin syscall
+	mov ebx, 0              ; specify stdin file descriptor
+	mov ecx, [ebp+8]        ; get buffer from stack
+	mov edx, [ebp+12]       ; get buffer size from stack
+	int 0x80                ; execute syscall
 
-    ;epologue
     mov esp, ebp        
     pop ebp             
     ret 
