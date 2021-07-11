@@ -3,7 +3,7 @@ extern print
 
 section .data
     column_separator db "|"
-    new_line db 0xA
+    new_line db `\n`
 
 section .text
 show_board:
@@ -36,7 +36,7 @@ display_row:
     push ebp            
     mov ebp, esp
 
-    push byte 0x1
+    push byte 1
 
     push column_separator
     call print
