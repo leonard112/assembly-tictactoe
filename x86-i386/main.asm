@@ -7,8 +7,8 @@ extern exit
 
 
 section .bss
-	stdin resb 70 
-	stdin_length equ $-stdin
+    stdin resb 70 
+    stdin_length equ $-stdin
 
 section .data
     welcome_message db `Welcome to x86 (i386) assembler Tic Tac Toe!\n`
@@ -56,7 +56,7 @@ display_prompt:
     pop eax
     pop eax
 
-	push stdin_length
+    push stdin_length
     push stdin
     call input
     pop eax

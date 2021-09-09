@@ -5,9 +5,9 @@
 .global print
 
 print:
-	push {lr}
-	mov r0, #1	// specify stdout file descriptor
-	mov r7, #4	// specify stdout syscall
-	swi 0		// execute syscall
-	pop {lr}
-	bx lr
+    push {lr}
+    mov r0, #1	// specify stdout file descriptor
+    mov r7, #4	// specify stdout syscall
+    swi 0		// execute syscall
+    pop {lr}
+    bx lr
