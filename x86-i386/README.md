@@ -28,7 +28,7 @@ $ sudo yum install nasm # fedora/coreos
 $ ./build.sh
 $
 ```
-4. Execute the `tictactoe` binary:
+5. Execute the `tictactoe` binary:
 ```console
 $ ./tictactoe
 Welcome to x86 (i386) assembler Tic Tac Toe!
