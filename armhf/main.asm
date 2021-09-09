@@ -111,7 +111,7 @@ check_winner:
     ldr r3, =row_2
     bl check_row_col_diag_for_winner
     ldr r3, =row_3
-        bl check_row_col_diag_for_winner
+    bl check_row_col_diag_for_winner
     
     // check first column
     ldr r3, =row_1
