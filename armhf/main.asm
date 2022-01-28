@@ -3,8 +3,8 @@
 .data
     input_buffer: .space 70
     input_buffer_size: .word 70
-    welcome_message: .asciz "Welcome to armhf (ARM-32) assembly language Tic Tac Toe!\n"
-    welcome_message_length: .word 57
+    welcome_message: .asciz "Welcome to armhf (ARM32) assembly language Tic Tac Toe!\n"
+    welcome_message_length: .word 56
     x_prompt: .asciz "It's X's turn: "
     x_prompt_length: .word 15
     o_prompt: .asciz "It's O's turn: "

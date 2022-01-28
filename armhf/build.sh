@@ -17,6 +17,10 @@ $assembler -g -o object/input.o input.asm
 $assembler -g -o object/exit.o exit.asm
 $assembler -g -o object/show_board.o show_board.asm
 $assembler -g -o object/fill_space.o fill_space.asm
-$link_editor -o tictactoe object/main.o object/print.o \
-                  object/input.o object/exit.o \
-              object/show_board.o object/fill_space.o
+$link_editor -o tictactoe \
+             object/main.o \
+             object/print.o \
+             object/input.o \
+             object/exit.o \
+             object/show_board.o \
+             object/fill_space.o
