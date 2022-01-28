@@ -191,7 +191,6 @@ check_winner:
 start_new_turn_if_at_least_one_cell_is_empty:
     add x0, x0, #1
     ldr x2, [sp], #8
-    pop {x2}
     ldrb w3, [x2]
     cmp w3, #32
     beq loop
@@ -210,7 +209,7 @@ check_row_col_diag_for_winner:
     ldr w3, [x3]
     cmp w3, w0
     beq x_win
-    cmp w3, w1
+    cmp w3, 1
     beq o_win
     ret
 
