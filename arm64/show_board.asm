@@ -30,7 +30,7 @@ display_row:
     // Parameters:
     // r6 (Address or row)
 
-    mov x2, =buffer_size
+    ldr x2, =buffer_size
     
     ldr x1, =column_separator
     bl print

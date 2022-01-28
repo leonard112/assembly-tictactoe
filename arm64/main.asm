@@ -16,7 +16,7 @@
     tie_message: .asciz "\nTie!\n\n"
     tie_message_length = . - tie_message
     player_symbol: .asciz "X"
-    player_symbol_length . - player_symbol
+    player_symbol_length= . - player_symbol
     row_1: .asciz "    "
     row_2: .asciz "    "
     row_3: .asciz "    "
