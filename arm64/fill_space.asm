@@ -71,7 +71,7 @@ set_col_3:
     ldrb w8, [x6, #2]
     cmp w8, #32		// return if column already contains a value
     bne bad_row_col
-    strb w7, [w6, #2]
+    strb w7, [x6, #2]
     b return_success
 
 bad_row_col:

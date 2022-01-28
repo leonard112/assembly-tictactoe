@@ -147,8 +147,8 @@ check_winner:
     ldrb w3, [x3, #2]
     strb w3, [x2, #1]
     ldr w3, =row_3
-    ldrb x3, [x3, #2]
-    strb x3, [x2, #2]
+    ldrb w3, [x3, #2]
+    strb w3, [x2, #2]
     ldr x3, =col_diag_tmp
     bl check_row_col_diag_for_winner
 
@@ -181,13 +181,16 @@ check_winner:
     ldr x1, =row_1
     ldr x2, =row_2
     ldr x3, =row_3
-    push {x1,x2,x3}
+    str x1, [sp, #-8]!
+    str x2, [sp, #-8]!
+    str x3, [sp, #-8]!
     mov x0, #0
     b start_new_turn_if_at_least_one_cell_is_empty
     b tie
 
 start_new_turn_if_at_least_one_cell_is_empty:
     add x0, x0, #1
+    ldr x2, [sp], #8
     pop {x2}
     ldrb w3, [x2]
     cmp w3, #32
@@ -205,9 +208,9 @@ start_new_turn_if_at_least_one_cell_is_empty:
 
 check_row_col_diag_for_winner:
     ldr w3, [x3]
-    cmp w3, x0
+    cmp w3, w0
     beq x_win
-    cmp w3, x1
+    cmp w3, w1
     beq o_win
     ret
 
