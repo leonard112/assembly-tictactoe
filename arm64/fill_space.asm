@@ -9,7 +9,7 @@
 
 .data
     bad_row_col_message: .asciz "\n\033[31mInvalid row and column specificed.\n\tSyntax: <row> <col>\n\t<row> and <col> may only be integers within the range 1-3.\n\tCells that are already occupied may not be specified.\033[0m\n\n"
-    bad_row_col_message_length: .word 182
+    bad_row_col_message_length = . - bad_row_col_message
 
 .text
 fill_space:
@@ -77,7 +77,6 @@ set_col_3:
 bad_row_col:
     ldr x1, =bad_row_col_message
     ldr x2, =bad_row_col_message_length
-    ldr x2, [x2]
     bl print
     b return_error
 

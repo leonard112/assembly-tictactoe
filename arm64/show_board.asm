@@ -8,6 +8,7 @@
 .data
     column_separator: .asciz "|"
     new_line: .asciz "\n"
+    buffer_size = . - new_line
 
 .text
 show_board:
@@ -29,7 +30,7 @@ display_row:
     // Parameters:
     // r6 (Address or row)
 
-    mov x2, #1
+    mov x2, =buffer_size
     
     ldr x1, =column_separator
     bl print

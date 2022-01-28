@@ -2,21 +2,21 @@
 
 .data
     input_buffer: .space 70
-    input_buffer_size: .word 70
+    input_buffer_size = . - input_buffer
     welcome_message: .asciz "Welcome to arm64 (ARM64) assembly language Tic Tac Toe!\n"
-    welcome_message_length: .word 56
+    welcome_message_length = . - welcome_message
     x_prompt: .asciz "It's X's turn: "
-    x_prompt_length: .word 15
+    x_prompt_length = . - x_prompt
     o_prompt: .asciz "It's O's turn: "
-    o_prompt_length: .word 15
+    o_prompt_length = . - o_prompt
     x_win_message: .asciz "\nPlayer X is the winner!\n\n"
-    x_win_message_length: .word 26
+    x_win_message_length = . - x_win_message
     o_win_message: .asciz "\nPlayer O is the winner!\n\n"
-    o_win_message_length: .word 26
+    o_win_message_length = . - o_win_message
     tie_message: .asciz "\nTie!\n\n"
-    tie_message_length: .word 7
+    tie_message_length = . - tie_message
     player_symbol: .asciz "X"
-    player_symbol_length: .word 1
+    player_symbol_length . - player_symbol
     row_1: .asciz "    "
     row_2: .asciz "    "
     row_3: .asciz "    "
@@ -31,7 +31,6 @@ _start:
 
     ldr x1, =welcome_message
     ldr x2, =welcome_message_length
-    ldr x2, [x2]
     bl print
 loop:
     ldr x3, =row_1
@@ -220,7 +219,6 @@ x_win:
     bl show_board
     ldr x1, =x_win_message
     ldr x2, =x_win_message_length
-    ldr x2, [x2]
     bl print
     mov x0, #0
     bl exit
@@ -232,7 +230,6 @@ o_win:
     bl show_board
     ldr x1, =o_win_message
     ldr x2, =o_win_message_length
-    ldr x2, [x2]
     bl print
     mov x0, #0
     bl exit
@@ -244,7 +241,6 @@ tie:
     bl show_board
     ldr x1, =tie_message
     ldr x2, =tie_message_length
-    ldr x2, [x2]
     bl print
     mov x0, #0
     bl exit
