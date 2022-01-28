@@ -5,7 +5,6 @@ extern input
 extern print
 extern exit
 
-
 section .bss
     stdin resb 70 
     stdin_length equ $-stdin
