@@ -8,7 +8,6 @@
 .data
     column_separator: .asciz "|"
     new_line: .asciz "\n"
-    buffer_size = . - new_line
 
 .text
 show_board:
@@ -35,7 +34,7 @@ display_row:
 
     stp x29, x30, [sp, #-16]!
 
-    ldr x2, =buffer_size
+    mov x2, #1
     
     ldr x1, =column_separator
     bl print

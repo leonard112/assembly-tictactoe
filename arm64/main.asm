@@ -50,7 +50,6 @@ display_prompt:
 
     ldr x1, =input_buffer
     ldr x2, =input_buffer_size
-    ldr x2, [x2]
     bl input
     ldr x0, =input_buffer
     ldr x1, =player_symbol
@@ -73,14 +72,12 @@ change_turn:
 display_x_prompt:
     ldr x1, =x_prompt
     ldr x2, =x_prompt_length
-    ldr x2, [x2]
-    bl display_prompt
+    b display_prompt
 
 display_o_prompt:
     ldr x1, =o_prompt
     ldr x2, =o_prompt_length
-    ldr x2, [x2]
-    bl display_prompt
+    b display_prompt
 
 change_turn_x:
     mov w0, #88
@@ -180,16 +177,16 @@ check_winner:
     ldr x1, =row_1
     ldr x2, =row_2
     ldr x3, =row_3
-    str x1, [sp, #-8]!
-    str x2, [sp, #-8]!
-    str x3, [sp, #-8]!
+    str x1, [sp, #-16]!
+    str x2, [sp, #-16]!
+    str x3, [sp, #-16]!
     mov x0, #0
     b start_new_turn_if_at_least_one_cell_is_empty
     b tie
 
 start_new_turn_if_at_least_one_cell_is_empty:
     add x0, x0, #1
-    ldr x2, [sp], #8
+    ldr x2, [sp], #16
     ldrb w3, [x2]
     cmp w3, #32
     beq loop
@@ -208,7 +205,7 @@ check_row_col_diag_for_winner:
     ldr w3, [x3]
     cmp w3, w0
     beq x_win
-    cmp w3, 1
+    cmp w3, w1
     beq o_win
     ret
 

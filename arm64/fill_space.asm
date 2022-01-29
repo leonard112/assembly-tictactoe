@@ -13,6 +13,8 @@
 
 .text
 fill_space:
+    stp x29, x30, [sp, #-16]!
+
     ldrb w5, [x0, #1]
     cmp w5, #32		// ensure row and colum are delimited with space
     bne bad_row_col
@@ -82,8 +84,12 @@ bad_row_col:
 
 return_error:
     mov x0, #1		// set error return code
-    ret
+    b return
 
 return_success:
     mov x0, #0
+    b return
+
+return:
+    ldp x29, x30, [sp], #16
     ret
