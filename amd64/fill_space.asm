@@ -10,7 +10,7 @@ fill_space:
     push rbp            
     mov rbp, rsp
 
-    mov rax, [rbp+16]            ; user input
+    mov rax, [rbp+16]           ; user input
     mov rbx, [rbp+24]
     mov rbx, [rbx]              ; player symbol
     

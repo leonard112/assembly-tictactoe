@@ -5,7 +5,7 @@
 .global input
 
 input:
-    mov x0, #0	// specify stdin file descriptor
-    mov x8, #63	// specify stdin syscall
-    svc 0		// execute syscall
+    mov x0, #0	        // specify stdin file descriptor
+    mov x8, #63	        // specify stdin syscall
+    svc 0		        // execute syscall
     ret

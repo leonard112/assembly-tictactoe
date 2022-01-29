@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e
+
+mkdir object &> /dev/null || true
+
 nasm -f elf32 main.asm -o object/main.o
 nasm -f elf32 show_board.asm -o object/show_board.o
 nasm -f elf32 fill_space.asm -o object/fill_space.o

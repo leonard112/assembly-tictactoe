@@ -4,5 +4,5 @@
 .global exit
 
 exit:
-    mov x8, #93	// specify exit syscall
+    mov x8, #93	        // specify exit syscall
     svc 0

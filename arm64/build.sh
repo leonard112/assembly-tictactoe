@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e
+
+mkdir object &> /dev/null || true
+
 as -g -o object/main.o main.asm
 as -g -o object/print.o print.asm
 as -g -o object/input.o input.asm

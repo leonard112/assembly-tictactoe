@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e
+
+mkdir object &> /dev/null || true
+
 architecture=$(lscpu | grep Architecture: | awk '{print $NF}' | tr -d '\n')
 assembler="as"
 link_editor="ld"
