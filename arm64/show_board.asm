@@ -12,6 +12,8 @@
 
 .text
 show_board:
+    stp x29, x30, [sp, #-16]!
+
     // show top row
     mov x6, x3
     bl display_row
@@ -24,11 +26,14 @@ show_board:
     mov x6, x5
     bl display_row	
 
+    ldp x29, x30, [sp], #16
     ret
 
 display_row:
     // Parameters:
     // r6 (Address or row)
+
+    stp x29, x30, [sp, #-16]!
 
     ldr x2, =buffer_size
     
@@ -61,4 +66,5 @@ display_row:
     ldr x1, =new_line
     bl print
     
+    ldp x29, x30, [sp], #16
     ret
