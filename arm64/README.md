@@ -1,4 +1,4 @@
-# arm64 (ARM64) Assembler Tic Tac Toe
+# arm64 (ARM64) Assembly Language Tic Tac Toe
 
 This program should be able to run on any Linux system.
 

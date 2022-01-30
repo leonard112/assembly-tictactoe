@@ -34,6 +34,7 @@ display_row:
 
     stp x29, x30, [sp, #-16]!
 
+    // length of each string to print
     mov x2, #1
     
     ldr x1, =column_separator

@@ -11,8 +11,8 @@ link_editor="ld"
 if [ "$architecture" != "armhf" ]; then
     assembler="arm-linux-gnueabihf-as"
     link_editor="arm-linux-gnueabihf-ld"
-    echo "'tictactoe' is not being built on ARM32. tictactoe is being cross compiled." \
-    "If you do not plan to run 'tictactoe' on ARM32 or ARM64, use 'qemu-arm' to run the program."
+    echo "'tictactoe' is not being built on 'armhf' architecture. 'tictactoe' is being cross compiled." \
+    "If you do not plan to run 'tictactoe' on 'armhf' or 'arm64' architecture, use 'qemu-arm' to run the program."
 fi
 
 $assembler -g -o object/main.o main.asm

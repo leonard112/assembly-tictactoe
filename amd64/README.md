@@ -1,4 +1,4 @@
-# x86 (amd64) Assembler Tic Tac Toe
+# x86 (amd64) Assembler Language Tic Tac Toe
 
 This program should be able to run on any 64 bit x86 Linux system.
 

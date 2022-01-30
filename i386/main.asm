@@ -10,7 +10,7 @@ section .bss
     stdin_length equ $-stdin
 
 section .data
-    welcome_message db `Welcome to x86 (i386) assembler Tic Tac Toe!\n`
+    welcome_message db `Welcome to x86 (i386) assembly language Tic Tac Toe!\n`
     welcome_message_length equ $-welcome_message
     x_prompt db "It's X's turn: "
     x_prompt_length equ $-x_prompt

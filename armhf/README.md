@@ -1,4 +1,4 @@
-# armhf (ARM32) Assembler Tic Tac Toe
+# armhf (ARM32) Assembly Language Tic Tac Toe
 
 This program should be able to run on any Linux system.
 
@@ -20,7 +20,7 @@ $ ./build.sh
 $
 ```
 5. Execute the `tictactoe` binary:
-> _If `tictactoe` is not being run on `armhf` or `aarch64`, install `qemu-user` to get the hardware emulation software to run ARM programs._
+> _If `tictactoe` is not being run on `armhf` or `aarch64` architecture, install `qemu-user` to get the hardware emulation software to run `armhf` programs._
 > To run with `qemu`: `$ qemu-arm ./tictactoe`
 ```console
 $ ./tictactoe

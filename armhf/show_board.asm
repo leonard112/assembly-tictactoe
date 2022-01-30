@@ -34,6 +34,7 @@ display_row:
 
     push {lr}
 
+    // length of each string to print
     mov r2, #1
     
     ldr r1, =column_separator
