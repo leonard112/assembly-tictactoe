@@ -1,7 +1,7 @@
 // Parameters:
 // r3 (Address of top row)
 // r4 (Address of middle row)
-// r5 (Address of bottem row)
+// r5 (Address of bottom row)
 
 .global show_board
 
@@ -30,7 +30,7 @@ show_board:
 
 display_row:
     // Parameters:
-    // r6 (Address or row)
+    // r6 (Address of row)
 
     push {lr}
 

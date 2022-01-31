@@ -1,7 +1,7 @@
 // Parameters:
 // x3 (Address of top row)
 // x4 (Address of middle row)
-// x5 (Address of bottem row)
+// x5 (Address of bottom row)
 
 .global show_board
 
@@ -30,7 +30,7 @@ show_board:
 
 display_row:
     // Parameters:
-    // r6 (Address or row)
+    // r6 (Address of row)
 
     stp x29, x30, [sp, #-16]!
 

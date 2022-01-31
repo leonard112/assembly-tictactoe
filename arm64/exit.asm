@@ -1,4 +1,4 @@
-// Parameters
+// Parameters:
 // x0 (Return value of the program)
 
 .global exit

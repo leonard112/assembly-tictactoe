@@ -6,9 +6,9 @@ This program should be able to run on any Linux system.
 
 ## How to run this program
 1. Clone this repository and run all the following commands from the `assembly-tictactoe/armhf` folder.
-2. If this program is being built on any architecture other than `armhf`, install `arm-linux-gnueabihf` which contains the assembler and link editor required to assemble and link `armhf` programs.
+2. If this program is being built on any architecture other than `armhf`, install `binutils-arm-linux-gnueabihf-dbg` which contains the assembler and link editor required to assemble and link `armhf` programs.
 ```console
-$ sudo apt-get update && sudo apt-get install arm-linux-gnueabihf # debian/ubuntu
+$ sudo apt-get update && sudo apt-get install binutils-arm-linux-gnueabihf-dbg # debian/ubuntu
 ...
 ```
 4. Execute `build.sh`:
