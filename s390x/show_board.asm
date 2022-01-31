@@ -48,7 +48,7 @@ display_row:
 	stg	%r14, 0(%r15)
 
     # length of each string to print
-    la %r4, 1
+    lghi %r4, 1
 
     larl %r3, column_separator
     brasl %r14, print

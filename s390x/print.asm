@@ -4,7 +4,7 @@
 .globl print
 
 print:
-	la %r1, 4			# specify write syscall	
-    la %r2, 1			# specify stdout file descriptor
+	lghi %r1, 4			# specify write syscall	
+    lghi %r2, 1			# specify stdout file descriptor
     svc 0				# execute syscall
 	br %r14	

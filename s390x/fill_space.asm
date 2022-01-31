@@ -82,22 +82,23 @@ set_col_3:
     j return_success
 
 bad_row_col:
-    # since bad_row_col_message is long, split into two sparate prints
+    # since bad_row_col_message is long, split into two separate prints
+    # message will not show up if message is not split into two separate prints
     larl %r3, bad_row_col_message
-    la %r4, 100
+    lghi %r4, 100
     brasl %r14, print
     aghi %r3, 100
-    la %r4, 79
+    lghi %r4, 79
     brasl %r14, print
 
     j return_error
 
 return_error:
-    la %r1, 1
+    lghi %r1, 1
     j return
 
 return_success:
-    la %r1, 0
+    lghi %r1, 0
     j return
 
 return:

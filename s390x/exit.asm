@@ -4,5 +4,5 @@
 .globl exit
 
 exit:
-	la %r1, 1			# specify exit syscall
+	lghi %r1, 1			# specify exit syscall
 	svc 0				# execute syscall

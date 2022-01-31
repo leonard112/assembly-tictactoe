@@ -5,50 +5,33 @@
     input_buffer: 
         .byte (70) 
         .p2align 1
-	input_buffer_size: 
-        .byte 70
-        .p2align 1
+	input_buffer_size=70
 	welcome_message: 
         .asciz "Welcome to s390x (IBMZ) assembly language Tic Tac Toe!\n"
         .p2align 1
-	welcome_message_length: 
-        .byte 55
-        .p2align 1
+	welcome_message_length=.-welcome_message
     x_prompt: 
         .asciz "It's X's turn: "
         .p2align 1
-    x_prompt_length: 
-        .byte 15
-        .p2align 1
+    x_prompt_length=.-x_prompt 
     o_prompt: 
         .ascii "It's O's turn: "
         .p2align 1
-    o_prompt_length: 
-        .byte 15
-        .p2align 1
+    o_prompt_length=.-o_prompt
     x_win_message: 
         .asciz "\nPlayer X is the winner!\n\n"
         .p2align 1
-    x_win_message_length: 
-        .byte 27 
-        .p2align 1
+    x_win_message_length=.-x_win_message
     o_win_message: 
         .asciz "\nPlayer O is the winner!\n\n"
         .p2align 1
-    o_win_message_length: 
-        .byte 27
-        .p2align 1
+    o_win_message_length=.-o_win_message
     tie_message: 
         .asciz "\nTie!\n\n"
         .p2align 1
-    tie_message_length: 
-        .byte 7
-        .p2align 1
+    tie_message_length=.-tie_message
     player_symbol: 
         .asciz "X"
-        .p2align 1
-    player_symbol_length: 
-        .byte 1
         .p2align 1
     row_1: 
         .asciz "    "
@@ -73,11 +56,10 @@
 .p2align 4
 _start:
     # counter tells check winner to only check for win after 5 turns.
-    la %r10, 0
+    lghi %r10, 0
 
     larl %r3, welcome_message
-    larl %r4, welcome_message_length
-    lb %r4, 0(%r4)
+    lghi %r4, welcome_message_length
     brasl %r14, print
 loop:
     larl %r5, row_1
@@ -96,8 +78,7 @@ display_prompt:
     brasl %r14, print
 
     larl %r3, input_buffer
-    larl %r4, input_buffer_size
-    lb %r4, 0(%r4)
+    lghi %r2, input_buffer_size
     brasl %r14, input
     larl %r1, input_buffer
     larl %r2, player_symbol
@@ -118,23 +99,21 @@ change_turn:
 
 display_x_prompt:
     larl %r3, x_prompt
-    larl %r4, x_prompt_length
-    lb %r4, 0(%r4)
+    lghi %r4, x_prompt_length
     j display_prompt
 
 display_o_prompt:
     larl %r3, o_prompt
-    larl %r4, o_prompt_length
-    lb %r4, 0(%r4)
+    lghi %r4, o_prompt_length
     j display_prompt
 
 change_turn_x:
-    la %r1, 88
+    lghi %r1, 88
     stc %r1, 0(%r2)
     j check_winner
 
 change_turn_o:
-    la %r1, 79
+    lghi %r1, 79
     stc %r1, 0(%r2)
     j check_winner
 
@@ -232,7 +211,7 @@ check_winner:
     stg %r2, 0(%r15)
     aghi %r15, -8
     stg %r3, 0(%r15)
-    la %r1, 0
+    lghi %r1, 0
     j start_new_turn_if_at_least_one_cell_is_empty
     j tie
 
@@ -275,10 +254,9 @@ x_win:
     larl %r7, row_3
     brasl %r14, show_board
     larl %r3, x_win_message
-    larl %r4, x_win_message_length
-    lb %r4, 0(%r4)
+    lghi %r4, x_win_message_length
     brasl %r14, print
-    la %r2, 0
+    lghi %r2, 0
     j exit 
 
 o_win:
@@ -287,10 +265,9 @@ o_win:
     larl %r7, row_3
     brasl %r14, show_board
     larl %r3, o_win_message
-    larl %r4, o_win_message_length
-    lb %r4, 0(%r4)
+    lghi %r4, o_win_message_length
     brasl %r14, print
-    la %r2, 0
+    lghi %r2, 0
     j exit
 
 tie:
@@ -299,8 +276,7 @@ tie:
     larl %r7, row_3
     brasl %r14, show_board
     larl %r3, tie_message
-    larl %r4, tie_message_length
-    lb %r4, 0(%r4)
+    lghi %r4, tie_message_length
     brasl %r14, print
-    la %r2, 0
+    lghi %r2, 0
     j exit
