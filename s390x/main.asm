@@ -1,5 +1,6 @@
 .globl _start
 
+# .data must be byte aligned for this program to work properly!
 .data
 .p2align 4
     input_buffer: 
@@ -7,17 +8,13 @@
         .p2align 1
 	input_buffer_size=70
 	welcome_message: 
-        .asciz "Welcome to s390x (IBMZ) assembly language Tic Tac Toe!\n"
+        .asciz "Welcome to IBMZ (s390x) assembly language Tic Tac Toe!\n"
         .p2align 1
 	welcome_message_length=.-welcome_message
     x_prompt: 
         .asciz "It's X's turn: "
         .p2align 1
     x_prompt_length=.-x_prompt 
-    o_prompt: 
-        .ascii "It's O's turn: "
-        .p2align 1
-    o_prompt_length=.-o_prompt
     x_win_message: 
         .asciz "\nPlayer X is the winner!\n\n"
         .p2align 1
@@ -62,6 +59,11 @@ _start:
     lghi %r4, welcome_message_length
     brasl %r14, print
 loop:
+    larl %r1, player_symbol
+    lb %r1, 0(%r1)
+    chi %r1, 79
+    je get_input_cpu
+
     larl %r5, row_1
     larl %r6, row_2
     larl %r7, row_3
@@ -71,8 +73,15 @@ loop:
     lb %r1, 0(%r1)
     chi %r1, 88
     je display_x_prompt
-    chi %r1, 79
-    je display_o_prompt
+
+    # Player O is the computer
+get_input_cpu:
+    larl %r3, input_buffer
+    larl %r4, row_1
+    larl %r5, row_2
+    larl %r6, row_3
+    brasl %r14, input_cpu
+    j call_fill_space
 
 display_prompt:
     brasl %r14, print
@@ -80,6 +89,8 @@ display_prompt:
     larl %r3, input_buffer
     lghi %r2, input_buffer_size
     brasl %r14, input
+
+call_fill_space:
     larl %r1, input_buffer
     larl %r2, player_symbol
     larl %r3, row_1
@@ -100,11 +111,6 @@ change_turn:
 display_x_prompt:
     larl %r3, x_prompt
     lghi %r4, x_prompt_length
-    j display_prompt
-
-display_o_prompt:
-    larl %r3, o_prompt
-    lghi %r4, o_prompt_length
     j display_prompt
 
 change_turn_x:
@@ -246,7 +252,7 @@ check_row_col_diag_for_winner:
     # restore return address from stack and return
     lg	%r14, 0(%r15)
     aghi %r15, 8	
-	br %r14
+    br %r14
 
 x_win:
     larl %r5, row_1

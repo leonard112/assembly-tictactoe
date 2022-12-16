@@ -1,9 +1,10 @@
 global _start
-extern show_board
+extern exit
 extern fill_space
+extern input_cpu
 extern input
 extern print
-extern exit
+extern show_board
 
 section .bss
     stdin resb 70 
@@ -14,8 +15,6 @@ section .data
     welcome_message_length equ $-welcome_message
     x_prompt db "It's X's turn: "
     x_prompt_length equ $-x_prompt
-    o_prompt db "It's O's turn: "
-    o_prompt_length equ $-o_prompt
     x_win_message db `\nPlayer X is the winner!\n\n`
     x_win_message_length equ $-x_win_message
     o_win_message db `\nPlayer O is the winner!\n\n`
@@ -37,6 +36,9 @@ _start:
     pop rax
     pop rax
 loop:
+    cmp [player_symbol], byte "O"
+    je get_input_cpu
+
     push row_3
     push row_2
     push row_1
@@ -47,8 +49,19 @@ loop:
 
     cmp [player_symbol], byte "X"
     je push_x_prompt
-    cmp [player_symbol], byte "O"
-    je push_o_prompt
+    
+    ; Player O is the computer
+get_input_cpu:
+    push row_3
+    push row_2
+    push row_1
+    push stdin
+    call input_cpu
+    pop rax
+    pop rax
+    pop rax
+    pop rax
+    jmp call_fill_space
 
 display_prompt:
     call print
@@ -60,6 +73,8 @@ display_prompt:
     call input
     pop rax
     pop rax
+
+call_fill_space:
     push row_3
     push row_2
     push row_1
@@ -71,7 +86,7 @@ display_prompt:
     pop rax
     pop rax
     pop rax
-    ; if there was an error, make player enter input again.
+    ; if there was an error, make player enter input again
     cmp dl, 0x00
     jne loop
 
@@ -84,11 +99,6 @@ change_turn:
 push_x_prompt:
     push x_prompt_length
     push x_prompt
-    jmp display_prompt
-
-push_o_prompt:
-    push o_prompt_length
-    push o_prompt
     jmp display_prompt
 
 change_turn_to_x:

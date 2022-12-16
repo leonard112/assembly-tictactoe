@@ -1,4 +1,4 @@
-# armhf (ARM32) Assembly Language Tic Tac Toe
+# ARM (armhf) Assembly Language Tic Tac Toe
 
 This program should be able to run on any Linux system.
 
@@ -24,7 +24,7 @@ $
 > To run with `qemu`: `$ qemu-arm ./tictactoe`
 ```console
 $ ./tictactoe
-Welcome to armhf (ARM32) assembler Tic Tac Toe!
+Welcome to ARM (armhf) assembler Tic Tac Toe!
 | | | |
 | | | |
 | | | |

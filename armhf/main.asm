@@ -3,12 +3,10 @@
 .data
     input_buffer: .space 70
     input_buffer_size: .word 70
-    welcome_message: .asciz "Welcome to armhf (ARM32) assembly language Tic Tac Toe!\n"
-    welcome_message_length: .word 56
+    welcome_message: .asciz "Welcome to ARM (armhf) assembly language Tic Tac Toe!\n"
+    welcome_message_length: .word 54
     x_prompt: .asciz "It's X's turn: "
     x_prompt_length: .word 15
-    o_prompt: .asciz "It's O's turn: "
-    o_prompt_length: .word 15
     x_win_message: .asciz "\nPlayer X is the winner!\n\n"
     x_win_message_length: .word 26
     o_win_message: .asciz "\nPlayer O is the winner!\n\n"
@@ -34,6 +32,11 @@ _start:
     ldr r2, [r2]
     bl print
 loop:
+    ldr r0, =player_symbol
+    ldrb r0, [r0]
+    cmp r0, #79
+    beq get_input_cpu
+
     ldr r3, =row_1
     ldr r4, =row_2
     ldr r5, =row_3
@@ -43,8 +46,15 @@ loop:
     ldrb r1, [r1]
     cmp r1, #88
     beq display_x_prompt
-    cmp r1, #79
-    beq display_o_prompt
+
+    // Player O is the computer
+get_input_cpu:
+    ldr r3, =input_buffer
+    ldr r4, =row_1
+    ldr r5, =row_2
+    ldr r6, =row_3
+    bl input_cpu
+    b call_fill_space
 
 display_prompt:
     bl print
@@ -53,6 +63,8 @@ display_prompt:
     ldr r2, =input_buffer_size
     ldr r2, [r2]
     bl input
+
+call_fill_space:
     ldr r0, =input_buffer
     ldr r1, =player_symbol
     ldr r2, =row_1
@@ -74,12 +86,6 @@ change_turn:
 display_x_prompt:
     ldr r1, =x_prompt
     ldr r2, =x_prompt_length
-    ldr r2, [r2]
-    bl display_prompt
-
-display_o_prompt:
-    ldr r1, =o_prompt
-    ldr r2, =o_prompt_length
     ldr r2, [r2]
     bl display_prompt
 

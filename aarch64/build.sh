@@ -8,11 +8,11 @@ architecture=$(lscpu | grep Architecture: | awk '{print $NF}' | tr -d '\n')
 assembler="as"
 link_editor="ld"
 
-if [ "$architecture" != "s390x" ]; then
-    assembler="s390x-linux-gnu-as"
-    link_editor="s390x-linux-gnu-ld"
-    echo "'tictactoe' is not being built on 's390x' architecture. 'tictactoe' is being cross compiled." \
-    "If you do not plan to run 'tictactoe' on 's390x' architecture, use 'qemu-s390x' to run the program."
+if [ "$architecture" != "aarch64" ]; then
+    assembler="aarch64-linux-gnu-as"
+    link_editor="aarch64-linux-gnu-ld"
+    echo "'tictactoe' is not being built on 'aarch64' architecture. 'tictactoe' is being cross compiled." \
+    "If you do not plan to run 'tictactoe' on 'aarch64' architecture, use 'qemu-aarch64' to run the program."
 fi
 
 $assembler -g -o object/exit.o exit.asm

@@ -3,12 +3,10 @@
 .data
     input_buffer: .space 70
     input_buffer_size = . - input_buffer
-    welcome_message: .asciz "Welcome to arm64 (ARM64) assembly language Tic Tac Toe!\n"
+    welcome_message: .asciz "Welcome to ARM (aarch64) assembly language Tic Tac Toe!\n"
     welcome_message_length = . - welcome_message
     x_prompt: .asciz "It's X's turn: "
     x_prompt_length = . - x_prompt
-    o_prompt: .asciz "It's O's turn: "
-    o_prompt_length = . - o_prompt
     x_win_message: .asciz "\nPlayer X is the winner!\n\n"
     x_win_message_length = . - x_win_message
     o_win_message: .asciz "\nPlayer O is the winner!\n\n"
@@ -27,12 +25,17 @@
 .text
 _start:
     // counter tells check winner to only check for win after 5 turns.
-    mov x10, #0
+    mov x11, #0
 
     ldr x1, =welcome_message
     ldr x2, =welcome_message_length
     bl print
 loop:
+    ldr w0, =player_symbol
+    ldrb w0, [x0]
+    cmp w0, #79
+    beq get_input_cpu
+
     ldr x3, =row_1
     ldr x4, =row_2
     ldr x5, =row_3
@@ -42,8 +45,15 @@ loop:
     ldrb w1, [x1]
     cmp w1, #88
     beq display_x_prompt
-    cmp w1, #79
-    beq display_o_prompt
+    
+    // Player O is the computer
+get_input_cpu:
+    ldr x3, =input_buffer
+    ldr x4, =row_1
+    ldr x5, =row_2
+    ldr x6, =row_3
+    bl input_cpu
+    b call_fill_space
 
 display_prompt:
     bl print
@@ -51,6 +61,8 @@ display_prompt:
     ldr x1, =input_buffer
     ldr x2, =input_buffer_size
     bl input
+
+call_fill_space:
     ldr x0, =input_buffer
     ldr x1, =player_symbol
     ldr x2, =row_1
@@ -62,7 +74,7 @@ display_prompt:
     bne loop
     
 change_turn:
-    add x10, x10, #1
+    add x11, x11, #1
     ldrb w0, [x1]
     cmp w0, #88
     beq change_turn_o
@@ -72,11 +84,6 @@ change_turn:
 display_x_prompt:
     ldr x1, =x_prompt
     ldr x2, =x_prompt_length
-    b display_prompt
-
-display_o_prompt:
-    ldr x1, =o_prompt
-    ldr x2, =o_prompt_length
     b display_prompt
 
 change_turn_x:
@@ -92,7 +99,7 @@ change_turn_o:
 check_winner:
     // if counter is less than less than 5 don't waste clock cycles looking for winner.
     // a player can only win in a minimum of 5 turns.
-    cmp w10, #5
+    cmp w11, #5
     blt loop
 
     ldr x0, =x_win_key

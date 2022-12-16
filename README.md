@@ -6,5 +6,5 @@ This repository contains an implementation of a simple Tic Tac Toe game in low l
 * `i386`
 * `amd64`
 * `armhf`
-* `arm64`
+* `aarch64`
 * `s390x`

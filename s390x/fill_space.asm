@@ -7,6 +7,7 @@
 
 .globl fill_space
 
+# .data must be byte aligned for this program to work properly!
 .data
 .p2align 4
     bad_row_col_message: 
@@ -18,7 +19,7 @@
 fill_space:
     # preserve return address on stack
     aghi %r15, -8
-	stg	%r14, 0(%r15)
+    stg	%r14, 0(%r15)
 
     lb %r6, 1(%r1)
     chi %r6, 32                 # ensure row and column are delimited with space
@@ -105,4 +106,4 @@ return:
     # restore return address from stack and return
     lg	%r14, 0(%r15)
     aghi %r15, 8	
-	br %r14
+    br %r14

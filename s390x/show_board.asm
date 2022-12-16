@@ -5,6 +5,7 @@
 
 .globl show_board
 
+# .data must be byte aligned for this program to work properly!
 .data
 .p2align 4
     column_separator: 
@@ -19,7 +20,7 @@
 show_board:
     # preserve return address on stack
     aghi %r15, -8
-	stg	%r14, 0(%r15)
+    stg	%r14, 0(%r15)
 
     # show top row
     lgr %r8, %r5
@@ -36,7 +37,7 @@ show_board:
     # restore return address from stack and return
     lg	%r14, 0(%r15)
     aghi %r15, 8	
-	br %r14
+    br %r14
 
 
 display_row:
@@ -45,7 +46,7 @@ display_row:
 
     # preserve return address on stack
     aghi %r15, -8
-	stg	%r14, 0(%r15)
+    stg	%r14, 0(%r15)
 
     # length of each string to print
     lghi %r4, 1
@@ -82,4 +83,4 @@ display_row:
     # restore return address from stack and return
     lg	%r14, 0(%r15)
     aghi %r15, 8	
-	br %r14
+    br %r14

@@ -9,30 +9,30 @@ fill_space:
     push ebp            
     mov ebp, esp
 
-    mov eax, [ebp+8]            ; user input
+    mov eax, [ebp+8]                            ; user input
     mov ebx, [ebp+12]
-    mov ebx, [ebx]              ; player symbol
+    mov ebx, [ebx]                              ; player symbol
 
-    cmp byte [eax+1], byte " "  ; ensure row and column are delimited with space
+    cmp byte [eax+1], byte " "                  ; ensure row and column are delimited with space
     jne bad_row_col 
 
-    cmp byte [eax+3], byte `\n` ; ensure user input is only 4 bytes long.
+    cmp byte [eax+3], byte `\n`                 ; ensure user input is only 4 bytes long.
     jne bad_row_col
 
-    cmp byte [eax], byte "1"    ; did the user specify row '1'?
+    cmp byte [eax], byte "1"                    ; did the user specify row '1'?
     je set_row_1
-    cmp byte [eax], byte "2"    ; did the user specify row '2'?
+    cmp byte [eax], byte "2"                    ; did the user specify row '2'?
     je set_row_2
-    cmp byte [eax], byte "3"    ; did the user specify row '3'?
+    cmp byte [eax], byte "3"                    ; did the user specify row '3'?
     je set_row_3
     jmp bad_row_col
 
 fill_column:
-    cmp byte [eax+2], byte "1"  ; did the user specify column '1'?
+    cmp byte [eax+2], byte "1"                  ; did the user specify column '1'?
     je set_col_1
-    cmp byte [eax+2], byte "2"  ; did the user specify column '2'?
+    cmp byte [eax+2], byte "2"                  ; did the user specify column '2'?
     je set_col_2
-    cmp byte [eax+2], byte "3"  ; did the user specify column '3'?
+    cmp byte [eax+2], byte "3"                  ; did the user specify column '3'?
     je set_col_3
     jmp bad_row_col
 
@@ -49,19 +49,19 @@ set_row_3:
     jmp fill_column
 
 set_col_1:
-    cmp byte [ecx], byte " "    ; return if column already contains a value
+    cmp byte [ecx], byte " "                    ; return if column already contains a value
     jne bad_row_col
     mov [ecx], bl
     jmp return_sucess
 
 set_col_2:
-    cmp byte [ecx+1], byte " "  ; return if column already contains a value
+    cmp byte [ecx+1], byte " "                  ; return if column already contains a value
     jne bad_row_col
     mov [ecx+1], bl
     jmp return_sucess
 
 set_col_3:
-    cmp byte [ecx+2], byte " "  ; return if column already contains a value
+    cmp byte [ecx+2], byte " "                  ; return if column already contains a value
     jne bad_row_col
     mov [ecx+2], bl
     jmp return_sucess
@@ -75,11 +75,11 @@ bad_row_col:
     jmp return_error
 
 return_error:
-    mov dl, 1                   ; set error return code
+    mov dl, 1                                   ; set error return code
     jmp return
 
 return_sucess:
-    mov dl, 0                   ; set success return code
+    mov dl, 0                                   ; set success return code
     jmp return
 
 return:

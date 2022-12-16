@@ -1,4 +1,4 @@
-# s390x (IBMZ) Assembly Language Tic Tac Toe
+# IBMZ (s390x) Assembly Language Tic Tac Toe
 
 This program should be able to run on any Linux system.
 
@@ -12,7 +12,7 @@ $ sudo apt-get update && sudo apt-get install binutils-s390x-linux-gnu # debian/
 ...
 ```
 4. Execute `build.sh`:
-> _`build.sh` uses `as` or `s390x-linux-gnu-as` to assemble all assembly source files into binary object files, and then uses `ld` or `s390x-linux-gnu-ld` to link edit all of the binary object files into an executable binary file called `tictactoe`. The linker and assembler used depends on whether or not `tictactoe` is being built on `armhf`._
+> _`build.sh` uses `as` or `s390x-linux-gnu-as` to assemble all assembly source files into binary object files, and then uses `ld` or `s390x-linux-gnu-ld` to link edit all of the binary object files into an executable binary file called `tictactoe`. The linker and assembler used depends on whether or not `tictactoe` is being built on `s390x`._
 
 > _No output indicates that the build was sucessful._
 ```console
@@ -24,7 +24,7 @@ $
 > To run with `qemu`: `$ qemu-s390x ./tictactoe`
 ```console
 $ ./tictactoe
-Welcome to s390x (IBMZ) assembler Tic Tac Toe!
+Welcome to IBMZ (s390x) assembler Tic Tac Toe!
 | | | |
 | | | |
 | | | |

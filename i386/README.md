@@ -5,7 +5,7 @@ This program should be able to run on any 32 bit or 64 bit x86 Linux system.
 &nbsp;
 
 ## How to run this program
-1. Clone this repository and run all the following commands from the `assembly-tictactoe/x86-i386` folder.
+1. Clone this repository and run all the following commands from the `assembly-tictactoe/i386` folder.
 2. Ensure `nasm` is insalled on the system
 > _`nasm` is used to assemble the assembly source files into binary object files._
 ```console
