@@ -35,6 +35,7 @@ section .data
     bad_row_col_message db `\n\033[31mBad row and column specificed.\n\tSyntax: <row> <col>\n\t<row> and <col> may only be integers within the range 1-3.\n\tCells that are already occupied may not be specified.\033[0m\n\n`
     bad_row_col_message_length equ $-bad_row_col_message
 
+section .text
 fill_space:
     push    ebp            
     mov     ebp, esp

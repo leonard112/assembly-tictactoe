@@ -34,6 +34,7 @@ section .data
     row_2                   db "    "
     row_3                   db "    "
     col_diag_tmp            db "    "
+    counter                 db 0 
 
 section .text
 _start:
@@ -98,6 +99,9 @@ call_fill_space:
     jne     loop
 
 change_turn:
+    mov     al, byte [counter]
+    add     rax, 1
+    mov     byte [counter], al
     cmp     [player_symbol], byte "X"
     je      change_turn_to_o
 
@@ -109,6 +113,12 @@ change_turn_to_o:
     mov     [player_symbol], byte "O"
 
 check_winner:
+    ; if counter is less than less than 5 
+    ; don't waste clock cycles looking for winner.
+    ; a player can only win in a minimum of 5 turns.
+    cmp     al, 5
+    jl      loop
+
     ; check rows for x win
     cmp     dword [row_1], dword "XXX "
     je      x_win

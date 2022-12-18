@@ -35,6 +35,10 @@ random:
     mov     r7, #13
     swi     0
 
+    // assembler message complaining about how the 'mul' instruction is being 
+    // used can be ignored if running on relatively modern chip.
+    // https://lists.llvm.org/pipermail/llvm-bugs/2008-February/004630.html
+
     // divide result of syscall stored in r0 by 3 and store the result in r2
     // multiply the quotiant from by 3 and store the result in r2
     // subtract the product from the result of the syscall

@@ -26,7 +26,6 @@
 
 .globl random
 
-.text
 random:
     # get sys_times/compat_sys_times as seed for random number generation
     # result of syscall gets stored in %r0
