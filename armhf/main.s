@@ -58,6 +58,7 @@ _start:
     ldr     r2, =welcome_message_length
     ldr     r2, [r2]
     bl      print
+    
 loop:
     ldr     r0, =player_symbol
     ldrb    r0, [r0]

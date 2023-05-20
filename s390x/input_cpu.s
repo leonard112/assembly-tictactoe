@@ -24,6 +24,7 @@
 # %r8       Used to load the contents of the row buffers
 #           Used to load 4-byte segments from the win key buffers
 #           Used to load bytes into the 'col_diag_tmp' buffer
+# %r9       Used to preserve %r5 when making call to random subroutine
 #
 # --------------------------- Memory Manipulation ----------------------------
 #
@@ -57,7 +58,7 @@
 input_cpu:
     # preserve return address on stack
     aghi    %r15, -8
-	stg	    %r14, 0(%r15)
+    stg	    %r14, 0(%r15)
 
     lghi    %r0, 10
     stc     %r0, 3(%r3)                         # set new line as input terminator
@@ -101,7 +102,7 @@ find_stop_row_3_win:
     brasl   %r14, find_stop_row_win
 
     # check if second byte in win key is O
-    lb      %r2, 1(%r1)
+    lb      %r0, 1(%r1)
     chi     %r0, 79
     je      find_col_win                        # if O
     j       stop_col_win                        # if X
@@ -109,7 +110,7 @@ find_stop_row_3_win:
 find_stop_row_win:
     # preserve return address on stack
     aghi    %r15, -8
-	stg	    %r14, 0(%r15)
+    stg	    %r14, 0(%r15)
 
     l       %r7, 0(%r7)
 
@@ -137,7 +138,7 @@ find_stop_row_win:
     # restore return address from stack and return
     lg	    %r14, 0(%r15)
     aghi    %r15, 8	
-	br      %r14
+    br      %r14
 
 find_stop_col_1_win:
     larl    %r7, col_diag_tmp
@@ -188,7 +189,7 @@ find_stop_col_3_win:
     brasl   %r14, find_stop_col_win
 
     # check if second byte in win key is O
-    lb      %r2, 1(%r1)
+    lb      %r0, 1(%r1)
     chi     %r0, 79
     je      find_backward_diag_win              # if O
     j       stop_backward_diag_win              # if X
@@ -196,7 +197,7 @@ find_stop_col_3_win:
 find_stop_col_win:
     # preserve return address on stack
     aghi    %r15, -8
-	stg	    %r14, 0(%r15)
+    stg	    %r14, 0(%r15)
 
     l       %r7, 0(%r7)
 
@@ -224,7 +225,7 @@ find_stop_col_win:
     # restore return address from stack and return
     lg	    %r14, 0(%r15)
     aghi    %r15, 8	
-	br      %r14
+    br      %r14
 
 find_stop_backward_diag_win:
     larl    %r7, col_diag_tmp
@@ -374,7 +375,7 @@ return:
     # restore return address from stack and return
     lg	    %r14, 0(%r15)
     aghi    %r15, 8	
-	br      %r14
+    br      %r14
 
 pop_return:
     lg	    %r14, 0(%r15)

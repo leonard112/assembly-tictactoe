@@ -65,6 +65,7 @@ _start:
     larl    %r3, welcome_message
     lghi    %r4, welcome_message_length
     brasl   %r14, print
+
 loop:
     larl    %r1, player_symbol
     lb      %r1, 0(%r1)
@@ -92,7 +93,7 @@ display_prompt:
     brasl   %r14, print
 
     larl    %r3, input_buffer
-    lghi    %r2, input_buffer_size
+    lghi    %r4, input_buffer_size
     brasl   %r14, input
 
 call_fill_space:

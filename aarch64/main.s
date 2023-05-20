@@ -51,6 +51,7 @@ _start:
     ldr     x2, =welcome_message_length
     bl      print
 loop:
+
     ldr     w1, =player_symbol
     ldrb    w1, [x1]
     cmp     w1, 79

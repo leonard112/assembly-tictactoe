@@ -1,6 +1,6 @@
 # ------------------------------- Description --------------------------------
 #
-# Fill a cell on the board based input specified by the caller.
+# Fill a cell on the board based on input provided by the caller.
 #
 # -------------------------------- Parameters --------------------------------
 #
@@ -50,27 +50,16 @@ fill_space:
     jne     bad_row_col
 
     lb      %r6, 3(%r1)
-    chi     %r6, 10                 # ensure user input is only 4 bytes long (byte 4 is new line character)
+    chi     %r6, 10                 # ensure input is only 4 bytes long (ascii 10 is new line character)
     jne     bad_row_col
 
     lb      %r6, 0(%r1)
-    chi     %r6, 49                 # did user specify row '1'?
+    chi     %r6, 49                 # did player specify row '1'?
     je      set_row_1
-    chi     %r6, 50                 # did user specify row '2'?
+    chi     %r6, 50                 # did player specify row '2'?
     je      set_row_2
-    chi     %r6, 51                 # did user specify row '3'?
+    chi     %r6, 51                 # did player specify row '3'?
     je      set_row_3
-    j       bad_row_col
-
-fill_column:
-    lb      %r6, 2(%r1)
-    lb      %r8, 0(%r2)
-    chi     %r6, 49                 # did user specify column '1'?
-    je      set_col_1
-    chi     %r6, 50                 # did user specify column '2'?
-    je      set_col_2
-    chi     %r6, 51                 # did user specify column '3'?
-    je      set_col_3
     j       bad_row_col
 
 set_row_1:
@@ -84,6 +73,17 @@ set_row_2:
 set_row_3:
     lgr     %r7, %r5
     j       fill_column
+
+fill_column:
+    lb      %r6, 2(%r1)
+    lb      %r8, 0(%r2)
+    chi     %r6, 49                 # did player specify column '1'?
+    je      set_col_1
+    chi     %r6, 50                 # did player specify column '2'?
+    je      set_col_2
+    chi     %r6, 51                 # did player specify column '3'?
+    je      set_col_3
+    j       bad_row_col
 
 set_col_1:
     lb      %r9, 0(%r7)

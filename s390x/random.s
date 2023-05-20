@@ -44,4 +44,4 @@ random:
     
     lr      %r0, %r2            # move remainder into %r0
 
-	br      %r14
+    br      %r14

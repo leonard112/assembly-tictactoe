@@ -43,6 +43,7 @@ _start:
     call    print
     pop     eax
     pop     eax
+    
 loop:
     cmp     [player_symbol], byte "O"
     jne     display_prompt

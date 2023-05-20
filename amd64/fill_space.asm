@@ -1,6 +1,6 @@
 ; ------------------------------- Description --------------------------------
 ;
-; Fill a cell on the board based input specified by the caller.
+; Fill a cell on the board based on input provided by the caller.
 ;
 ; -------------------------------- Parameters --------------------------------
 ;
@@ -12,7 +12,7 @@
 ;
 ; ------------------------------ Register Usage ------------------------------
 ;
-; rax       Used for user input buffer address
+; rax       Used for input buffer address
 ; rbx       Used to store player symbol
 ; rcx       Used for row addresses
 ;
@@ -40,33 +40,24 @@ fill_space:
     push    rbp            
     mov     rbp, rsp
 
-    mov     rax, [rbp+16]                   ; user input
+    mov     rax, [rbp+16]                   ; input buffer
     mov     rbx, [rbp+24]
     mov     rbx, [rbx]                      ; player symbol
     
     cmp     byte [rax+1], byte " "          ; ensure row and column are delimited with space
     jne     bad_row_col 
     
-    cmp     byte [rax+3], byte `\n`         ; ensure user input is only 4 bytes long
+    cmp     byte [rax+3], byte `\n`         ; ensure input is only 4 bytes long
     jne     bad_row_col
     
-    cmp     byte [rax], byte "1"            ; did the user specify row '1'?
+    cmp     byte [rax], byte "1"            ; did the player specify row '1'?
     je      set_row_1
-    cmp     byte [rax], byte "2"            ; did the user specify row '2'?
+    cmp     byte [rax], byte "2"            ; did the player specify row '2'?
     je      set_row_2
-    cmp     byte [rax], byte "3"            ; did the user specify row '3'?
+    cmp     byte [rax], byte "3"            ; did the player specify row '3'?
     je      set_row_3
     jmp     bad_row_col
-    
-fill_column:
-    cmp     byte [rax+2], byte "1"          ; did the user specify column '1'?
-    je      set_col_1
-    cmp     byte [rax+2], byte "2"          ; did the user specify column '2'?
-    je      set_col_2
-    cmp     byte [rax+2], byte "3"          ; did the user specify column '3'?
-    je      set_col_3
-    jmp     bad_row_col
-    
+
 set_row_1:
     mov     rcx, [rbp+32]
     jmp     fill_column
@@ -78,6 +69,15 @@ set_row_2:
 set_row_3:
     mov     rcx, [rbp+48]
     jmp     fill_column
+    
+fill_column:
+    cmp     byte [rax+2], byte "1"          ; did the player specify column '1'?
+    je      set_col_1
+    cmp     byte [rax+2], byte "2"          ; did the player specify column '2'?
+    je      set_col_2
+    cmp     byte [rax+2], byte "3"          ; did the player specify column '3'?
+    je      set_col_3
+    jmp     bad_row_col
 
 set_col_1:
     cmp     byte [rcx], byte " "            ; return if column already contains a value
